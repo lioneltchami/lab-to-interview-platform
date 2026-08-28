@@ -44,3 +44,7 @@ jobs:
       - name: Render and inspect Kustomize configuration
         shell: bash
         run: bash scripts/render-manifests.sh
+
+      - name: Validate D1 pre-bootstrap boundary
+        shell: bash
+        run: bash scripts/validate-d1-prebootstrap.sh
