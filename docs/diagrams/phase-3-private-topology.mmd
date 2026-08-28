@@ -1,0 +1,19 @@
+flowchart TB
+    Git[Public canonical Git repository\nNo secrets or private addressing] -->|approved desired state| Flux
+    Registry[Future registry\nExact digest only] -. optional, after decision .-> Git
+
+    subgraph Private[Private home-lab boundary]
+        Operator[Authorized operator\nlocal management path] --> API[Private Kubernetes API endpoint]
+        API --> CP1[Durable Talos control plane\nD1: one node]
+        CP1 --> CNI[Cilium planned before bootstrap\nGitOps-managed]
+        CNI --> SB[Signalboard namespace\nrestricted Pod Security]
+        SB --> Service[ClusterIP service\nno public route]
+        Policy[Standard NetworkPolicy\ndefault deny] -. enforced by .-> CNI
+        Flux[Flux controllers] --> SB
+        API -. future D2 only .-> CP2[Control plane 2]
+        API -. future D2 only .-> CP3[Control plane 3]
+    end
+
+    Public((Internet)) -.-x Service
+    Public -.-x API
+    Note[Private values stay out of Git:\nnode addresses, Talos secrets, keys, credentials] -.-> Operator

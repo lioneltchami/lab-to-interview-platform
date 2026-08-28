@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: signalboard-default-deny
+  namespace: signalboard
+  labels:
+    app.kubernetes.io/part-of: lab-to-interview
+    app.kubernetes.io/name: signalboard
+    lab-to-interview.io/policy-stage: phase-3-foundation
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
