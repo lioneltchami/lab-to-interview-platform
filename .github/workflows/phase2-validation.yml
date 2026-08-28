@@ -2,21 +2,9 @@ name: Phase 2 validation
 
 on:
   pull_request:
-    paths:
-      - 'platform-app/**'
-      - 'apps/**'
-      - 'clusters/**'
-      - 'scripts/**'
-      - '.github/workflows/phase2-validation.yml'
   push:
     branches:
       - main
-    paths:
-      - 'platform-app/**'
-      - 'apps/**'
-      - 'clusters/**'
-      - 'scripts/**'
-      - '.github/workflows/phase2-validation.yml'
 
 permissions:
   contents: read
