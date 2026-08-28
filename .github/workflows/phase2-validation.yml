@@ -1,0 +1,58 @@
+name: Phase 2 validation
+
+on:
+  pull_request:
+    paths:
+      - 'platform-app/**'
+      - 'apps/**'
+      - 'clusters/**'
+      - 'scripts/**'
+      - '.github/workflows/phase2-validation.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'platform-app/**'
+      - 'apps/**'
+      - 'clusters/**'
+      - 'scripts/**'
+      - '.github/workflows/phase2-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  application:
+    name: Signalboard application
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: platform-app
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: false
+
+      - name: Run native application tests
+        run: npm test
+
+      - name: Build non-root container image
+        run: docker build --tag signalboard:ci .
+
+  manifests:
+    name: GitOps manifests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Render and inspect Kustomize configuration
+        shell: bash
+        run: bash scripts/render-manifests.sh

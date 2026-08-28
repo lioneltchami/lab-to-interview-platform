@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: signalboard
+  namespace: signalboard
+  labels:
+    app.kubernetes.io/name: signalboard
+    app.kubernetes.io/part-of: lab-to-interview
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: signalboard
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP

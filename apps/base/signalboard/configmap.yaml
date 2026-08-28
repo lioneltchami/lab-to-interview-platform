@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: signalboard
+  namespace: signalboard
+  labels:
+    app.kubernetes.io/name: signalboard
+    app.kubernetes.io/part-of: lab-to-interview
+data:
+  PORT: "8080"
+  APP_VERSION: "0.1.0-dev"

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/signalboard
+images:
+  - name: signalboard
+    newName: signalboard
+    newTag: 0.1.0-dev
+patches:
+  - path: version-configmap-patch.yaml
