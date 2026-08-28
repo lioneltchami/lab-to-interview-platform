@@ -3,6 +3,7 @@ set -euo pipefail
 
 context="${KUBE_CONTEXT:-kind-lab-to-interview-dev}"
 expected_version="${EXPECTED_VERSION:-0.1.0-dev}"
+expected_marker="${EXPECTED_RELEASE_MARKER:-}"
 local_port="${SIGNALBOARD_LOCAL_PORT:-18081}"
 log_file="$(mktemp)"
 port_forward_pid=""
@@ -53,6 +54,10 @@ done
 version="$(curl --silent --show-error --fail "http://127.0.0.1:${local_port}/api/v1/version")"
 printf '%s' "$ready" | grep -q '"status":"ready"' || fail 'Readiness endpoint did not return the expected ready status.'
 printf '%s' "$version" | grep -q "\"version\":\"${expected_version}\"" || fail "Version endpoint did not return ${expected_version}."
+if [[ -n "$expected_marker" ]]; then
+  status="$(curl --silent --show-error --fail "http://127.0.0.1:${local_port}/api/v1/status")"
+  printf '%s' "$status" | grep -q "\"marker\":\"${expected_marker}\"" || fail "Status endpoint did not return source marker ${expected_marker}."
+fi
 
 log_output="$(kubectl --context "$context" logs deployment/signalboard -n signalboard --tail=20)"
 case "$log_output" in
@@ -60,4 +65,4 @@ case "$log_output" in
   *) fail 'Signalboard did not emit a structured request log after verification.' ;;
 esac
 
-printf 'Flux source, Flux Kustomizations, Signalboard rollout, internal service access, version, structured logs, and private-only service checks passed.\n'
+printf 'Flux source, Flux Kustomizations, Signalboard rollout, internal service access, version, optional source marker, structured logs, and private-only service checks passed.\n'
