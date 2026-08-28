@@ -28,6 +28,13 @@ config/talosconfig
 talosconfig
 secrets/
 private/
+# Future Talos bootstrap artifacts: templates remain reviewable; generated values never enter Git.
+talos/generated/
+talos/private/
+talos/**/secrets.yaml
+talos/**/talosconfig
+talos/**/kubeconfig
+talos/**/kubeconfig.*
 
 # SOPS/Age decryption material
 age.key

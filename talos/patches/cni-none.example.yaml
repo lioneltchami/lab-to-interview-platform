@@ -1,0 +1,7 @@
+# Example only. Do not apply this file directly.
+# Reconfirm this syntax against the selected Talos release before use.
+# Purpose: remove the default CNI so a reviewed Cilium release can be installed
+# during the documented bootstrap window.
+apiVersion: v1alpha1
+kind: KubeFlannelCNIConfig
+$patch: delete
