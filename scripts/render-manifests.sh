@@ -7,7 +7,6 @@ fail() {
 }
 
 command -v kubectl >/dev/null 2>&1 || fail 'kubectl is required to render Kustomize configuration.'
-expected_version="${SIGNALBOARD_VERSION:-0.1.0-dev}"
 
 signalboard_output="$(mktemp)"
 cluster_output="$(mktemp)"
@@ -23,7 +22,7 @@ for kind in Namespace ServiceAccount ConfigMap Deployment Service; do
   grep -q "^kind: ${kind}$" "$signalboard_output" || fail "Signalboard overlay does not render a ${kind}."
 done
 
-grep -q "^        image: signalboard:${expected_version}$" "$signalboard_output" || fail "Signalboard overlay does not render the expected local development image ${expected_version}."
+grep -q '^        image: signalboard:0.1.0-dev$' "$signalboard_output" || fail 'Signalboard overlay does not render the expected local development image.'
 grep -q '^        runAsNonRoot: true$' "$signalboard_output" || fail 'Signalboard deployment does not enforce a non-root pod security context.'
 grep -q '^          allowPrivilegeEscalation: false$' "$signalboard_output" || fail 'Signalboard deployment does not disable privilege escalation.'
 grep -q '^          readOnlyRootFilesystem: true$' "$signalboard_output" || fail 'Signalboard deployment does not use a read-only root filesystem.'

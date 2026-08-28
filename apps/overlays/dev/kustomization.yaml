@@ -5,6 +5,6 @@ resources:
 images:
   - name: signalboard
     newName: signalboard
-    newTag: 0.1.1-dev
+    newTag: 0.1.0-dev
 patches:
   - path: version-configmap-patch.yaml
