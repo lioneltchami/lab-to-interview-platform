@@ -1,0 +1,78 @@
+# Operating-system and editor artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
+*.local
+
+# Credentials, keys, certificates, and kubeconfig material
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.csr
+*.kubeconfig
+kubeconfig
+kubeconfig.*
+config/talosconfig
+talosconfig
+secrets/
+private/
+
+# SOPS/Age decryption material
+age.key
+age-key.txt
+keys.txt
+*.agekey
+.sops-key.txt
+
+# Local cluster, container, and test artifacts
+.kube/
+.kind/
+.tmp/
+tmp/
+coverage/
+reports/
+*.log
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.bak
+*.dump
+*.sql
+
+# Build and dependency outputs
+node_modules/
+dist/
+build/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Historical reference archive and extracted copies
+mischavandenburg-homelab-main/
+mischavandenburg-homelab-main.zip
+homelab-to-interview/
+reference-archive/
+
+# Generated recordings and screenshots before explicit review
+recordings/
+screenshots/raw/
+
+# Terraform/OpenTofu local state if introduced later
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log

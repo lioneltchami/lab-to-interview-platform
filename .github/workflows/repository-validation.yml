@@ -1,0 +1,23 @@
+name: Repository validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-validation:
+    name: Repository hygiene and validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Verify repository baseline
+        shell: bash
+        run: bash scripts/test-repository-validator.sh
