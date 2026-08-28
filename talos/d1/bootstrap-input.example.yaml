@@ -1,0 +1,45 @@
+# Project-specific planning input, not a Talos machine configuration.
+# This file contains placeholders only and must never contain actual private addresses,
+# disk identifiers, credentials, keys, or generated Talos configuration.
+apiVersion: lab-to-interview.io/v1alpha1
+kind: DurableBootstrapInput
+metadata:
+  name: d1-single-control-plane-example
+  labels:
+    lab-to-interview.io/profile: d1
+    lab-to-interview.io/classification: public-template
+spec:
+  availability:
+    claim: single-control-plane-durable-learning-environment
+    nonClaims:
+      - high-availability
+      - control-plane-failure-tolerance
+      - durable-application-data
+  node:
+    label: cp-01
+    architecture: <amd64-or-arm64>
+    reimageApproved: <true-or-false>
+    localConsoleRecoveryVerified: <true-or-false>
+    targetDiskVerifiedPrivately: <true-or-false>
+  network:
+    access: private-lan-only
+    addressing: stable-dhcp-reservation
+    exactValuesStoredOutsideGit: true
+    publicExposureAllowed: false
+    remoteAccessEnabled: false
+  platform:
+    talosVersion: <review-before-use>
+    talosctlVersion: <match-selected-talos>
+    kubernetesVersion: <supported-by-selected-talos>
+    cilium:
+      planned: true
+      version: <review-before-use>
+      installationMethod: <reviewed-gitops-method>
+    flux:
+      sourceRepository: https://github.com/lioneltchami/lab-to-interview-platform
+      branch: main
+  security:
+    generatedCredentialsStoredOutsideGit: true
+    secretManagementNotYetEnabled: true
+    signalboardPodSecurity: restricted
+    signalboardNetworkPolicy: declared-default-deny
