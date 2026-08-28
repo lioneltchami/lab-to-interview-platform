@@ -1,6 +1,6 @@
 # Evidence Index
 
-**Status:** Active Phase 1 baseline
+**Status:** Active through the Phase 3 foundation
 **Purpose:** Keep the Lab to Interview platform honest, reviewable, and teachable by linking each material claim to an artifact that someone can inspect.
 
 ## How to use this index
@@ -24,8 +24,8 @@ Add evidence when a phase task is complete. Do not mark a capability complete be
 | E-004 | 1 | Repository checks catch basic hygiene failures. | CI run for normal content plus controlled negative fixtures. | Verified — local negative and clean checks passed; GitHub Actions workflow completed successfully on the public repository. | Internal project | Repository maintainer |
 | E-005 | 2 | A code change reaches the development cluster from Git. | Pull request, CI record, image digest, Flux status, and application version endpoint. | Verified — source commit `7338ff5` reconciled through Flux and the internal service returned the declared version and source marker. | Public after review | Repository maintainer |
 | E-006 | 2 | The deployment can roll back. | Rollback runbook, Git revision, health output, and elapsed time. | Verified — Git revert `bd0377a` reconciled through Flux to the `0.1.0-dev` baseline in 15 seconds. | Public after review | Repository maintainer |
-| E-007 | 3 | The durable platform has documented topology and access boundaries. | Hardware inventory, architecture diagram, topology tests, and access runbook. | Planned | Confidential with public summary | Repository maintainer |
-| E-008 | 3 | Network policy prevents unintended connections. | Default-deny policy, connectivity test output, and policy report. | Planned | Public after review | Repository maintainer |
+| E-007 | 3 | The durable platform has documented topology and access boundaries. | Hardware inventory, architecture diagram, topology tests, and access runbook. | Draft — design, availability ADR, private-boundary ADR, sanitized diagram, inventory template, and bootstrap runbook are published; actual inventory and durable bootstrap remain pending. | Confidential with public summary | Repository maintainer |
+| E-008 | 3 | Network policy prevents unintended connections. | Default-deny policy, connectivity test output, and policy report. | Draft — standard default-deny policy is declared and Pod Security Admission is verified; Cilium-enabled allowed/denied connectivity evidence remains pending. | Public after review | Repository maintainer |
 | E-009 | 3 | Secret handling separates ciphertext from keys and avoids plaintext Git history. | Secret-management ADR, redacted configuration, scan result, and authorized bootstrap test. | Planned | Confidential with public summary | Repository maintainer |
 | E-010 | 4 | Service behavior is observable. | SLI/SLO document, dashboard export, log example, alert configuration, and test alert. | Planned | Public after review | Repository maintainer |
 | E-011 | 4 | The platform handles a controlled incident. | Scenario, detection signal, timeline, remediation pull request, and post-incident review. | Planned | Public after review | Repository maintainer |
