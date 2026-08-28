@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-probe_file="tests/validator-secret-probe.txt"
+probe_file="$(mktemp validator-secret-probe.XXXXXX)"
 cleanup() {
   rm -f "$probe_file"
 }
