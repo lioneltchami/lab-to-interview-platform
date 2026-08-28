@@ -40,7 +40,7 @@ The branch rule requires three named checks. The Phase 2 workflow initially limi
 | Repository security-settings readback | Confirmed `secret_scanning=enabled` and `secret_scanning_push_protection=enabled`. |
 | Provider alert readback | Confirmed zero currently open secret-scanning alerts. |
 | Local validation | Controlled negative credential-pattern test and clean repository validation passed. |
-| Reviewability test | This evidence and the workflow correction are delivered through a pull request; the protected branch policy will require its checks before merge. |
+| Reviewability test | [Pull request #1](https://github.com/lioneltchami/lab-to-interview-platform/pull/1) completed all three required checks and merged through the protected `main` workflow. |
 
 ## Boundaries and follow-up
 
