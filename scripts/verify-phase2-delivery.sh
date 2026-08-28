@@ -43,7 +43,7 @@ port_forward_pid=$!
 
 ready=''
 for attempt in 1 2 3 4 5 6 7 8 9 10; do
-  if ready="$(curl --silent --show-error --fail "http://127.0.0.1:${local_port}/health/ready")"; then
+  if ready="$(curl --silent --fail "http://127.0.0.1:${local_port}/health/ready" 2>/dev/null)"; then
     break
   fi
   sleep 1
@@ -54,6 +54,10 @@ version="$(curl --silent --show-error --fail "http://127.0.0.1:${local_port}/api
 printf '%s' "$ready" | grep -q '"status":"ready"' || fail 'Readiness endpoint did not return the expected ready status.'
 printf '%s' "$version" | grep -q "\"version\":\"${expected_version}\"" || fail "Version endpoint did not return ${expected_version}."
 
-kubectl --context "$context" logs deployment/signalboard -n signalboard --tail=20 | grep -q '"event":"http_request"' || fail 'Signalboard did not emit a structured request log after verification.'
+log_output="$(kubectl --context "$context" logs deployment/signalboard -n signalboard --tail=20)"
+case "$log_output" in
+  *'"event":"http_request"'*) ;;
+  *) fail 'Signalboard did not emit a structured request log after verification.' ;;
+esac
 
 printf 'Flux source, Flux Kustomizations, Signalboard rollout, internal service access, version, structured logs, and private-only service checks passed.\n'

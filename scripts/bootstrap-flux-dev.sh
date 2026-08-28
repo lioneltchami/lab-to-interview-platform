@@ -20,9 +20,12 @@ docker image inspect "$image_ref" >/dev/null 2>&1 || fail "Local image $image_re
 kind get clusters | grep -Fx "$kind_cluster" >/dev/null || fail "Kind cluster $kind_cluster does not exist. Follow docs/runbooks/dev-bootstrap.md first."
 
 kind load docker-image "$image_ref" --name "$kind_cluster"
-kubectl --context "$context" apply -k clusters/dev/flux-system
+kubectl --context "$context" apply -f clusters/dev/flux-system/gotk-components.yaml
+kubectl --context "$context" wait --for=condition=Established customresourcedefinition/gitrepositories.source.toolkit.fluxcd.io --timeout=120s
+kubectl --context "$context" wait --for=condition=Established customresourcedefinition/kustomizations.kustomize.toolkit.fluxcd.io --timeout=120s
 kubectl --context "$context" rollout status deployment/source-controller -n flux-system --timeout=120s
 kubectl --context "$context" rollout status deployment/kustomize-controller -n flux-system --timeout=120s
+kubectl --context "$context" apply -f clusters/dev/flux-system/gotk-sync.yaml
 
 flux check --context "$context" --timeout 2m
 flux reconcile source git flux-system --context "$context" -n flux-system --timeout 2m
