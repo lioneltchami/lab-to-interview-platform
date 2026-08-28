@@ -1,0 +1,16 @@
+{
+  "name": "signalboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A synthetic service-status and incident-tracker workload for the Lab to Interview platform.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0 <23.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "test:watch": "node --test --watch"
+  },
+  "license": "UNLICENSED"
+}
