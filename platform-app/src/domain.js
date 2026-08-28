@@ -72,10 +72,6 @@ export function getStatus() {
     overallState: degradedComponents.length === 0 ? 'operational' : 'degraded',
     generatedAt: new Date().toISOString(),
     activeIncidentCount: currentIncidents.filter((incident) => incident.state !== 'resolved').length,
-    release: {
-      dataMode: 'synthetic',
-      marker: 'phase-two-foundation'
-    },
     components: currentComponents
   };
 }

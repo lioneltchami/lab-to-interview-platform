@@ -4,4 +4,4 @@ metadata:
   name: signalboard
   namespace: signalboard
 data:
-  APP_VERSION: "0.1.2-dev"
+  APP_VERSION: "0.1.0-dev"

@@ -33,7 +33,6 @@ test('status endpoint reports the deterministic synthetic component state', asyn
   assert.equal(body.service, 'Signalboard');
   assert.equal(body.overallState, 'degraded');
   assert.equal(body.activeIncidentCount, 1);
-  assert.deepEqual(body.release, { dataMode: 'synthetic', marker: 'phase-two-foundation' });
   assert.equal(body.components.length, 3);
   assert.deepEqual(body.components.map((component) => component.id), ['enrollment-api', 'learning-library', 'evidence-index']);
   assert.match(body.generatedAt, /^\d{4}-\d{2}-\d{2}T/);
